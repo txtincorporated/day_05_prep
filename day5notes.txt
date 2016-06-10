@@ -1,0 +1,30 @@
+What did you find interesting in each of the above readings? Submit this item as part of a comment for your PR (see below).
+--Seems like automating the output of static HTML like this might come in handy if you were more concerned with setting up complex templates that with getting your Web page to look just right
+--On the other hand, could be useful for whipping up a quick landing page, etc.
+--The GH repo comments are a great example of clear and concise technical documentation; anyone can understand what they are for even without knowing any of the jargon or technical details, and they  lay out the issues involved clearly for experts in the fewest possible words without sacrificing accurate language or writing style.
+--Presumably marked and hljs are two totally different things?
+--In hljs are <pre> and <code> two different tags or the opening and close of a single one?
+
+CHECK-Edit content in the upper left window, paying attention to the markdown syntax.  [Nice how intuitive the markdown characters seem to be.]
+CHECK-Add/delete list items. [Still not sure how to add ordered list sub-items; doesn't seem to conform to other markdown systems.]
+CHECK-...add level 4 and level 5 headings...[Interesting here and elsewhere that if you forget to leave a space the md char. is treated as plain; space chars. finally get their day in the sun!]
+CHECK-...add or edit JS source code...[QUESTION:  What if I change 'i' to, say, 'me' in render.js:14?  PREDICTION:  Nuttin.  RESULT: Yep.  Nuttin. FOLLOWUP:  Where the hell is i getting passed from?  What does it want for 'i'?  Apples?  Oranges?  Persimmons?  HYPOTHESIS: 'i' is 'each' <pre><code> 'block', the latter having been saved as var m (BTW, shd. line 9 comment not read 'markdown' instead of 'markup'?)]
+CHECK-...etc.[O.K., one more:  what if I take out 'm' in render.js:13?  GUESS:  Either it breaks or it fails silently... lean toward the latter.  RESULT:  I was right, but my guess was incomplete:  I didn't specify that only #pMarkout would be affected.  FOLLOWUP: Well, what if we do that for 'i'?  GUESS:  ...is as good as yours.  RESULT: Whoa.  All _but_ #tBody and #pMarkout fail; console error:  Uncaught TypeError: Cannot read property 'replace' of undefined.  FOLLOWUP2:  Why doesn't #pMarkout fail?  Is 'i' the each in .each()?  BTW, how is it filling out #pJson?  Line 22?]
+
+Analyze
+1.What are the units of measure for the values of the "rows" and "cols" attributes of <textarea>?
+--Rows: Monospace type ems?  Cols.: default column widths stored somewhere?  Shd. also be monospace ems.
+
+2.What is purpose of line index.html:64? i.e., 
+--Simply put, this makes it go.  Once JQ, highlight.min and marked.min are loaded hljs can start to do its thing via the initHighlightingOnLoad() method found in one of the foregoing docs and then applied to this context in render.js.  W/o this line, that last file would have no effect and the first three would just sit there w/o being put to use.
+What happens if you move it one line up in the HTML file? Two lines up?
+--Well, shut my mouth.  In the first case, neither the browser nor the console could seem to care less.  In the second, the console gets upset but the browser doesn't seem to care.  Why?  If "hljs" is undefined, how is the browser still able to carry out its instructions?  Is it giving the HTML a second pass somewhere?
+
+3. In line render.js:14, what does pMarkOut.find('pre code') do? What are "pre" and "code"?
+--These are the nested set of tags that hljs looks for in order to delimit what it's going to turn into markup.
+
+4. In render.js:15, what does hljs.highlightBlock(block)return, and how is the returned value used by the rest of the code?
+--It marks up each 'pre code' block it finds w/ HTML tags and passes it to the other functions for rendering into HTML, displaying as raw markup, and transposing and displaying (line 22?) as JSON strings.
+
+5. What line(s) of code are responsible for the causing the outputs to be updated?
+--render.js:26-28; is line 26 the reason the exact placement of index.html:63 doesn't matter as much as it would seem to?
