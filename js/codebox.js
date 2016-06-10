@@ -1,7 +1,6 @@
 $(function() {
   var tBody    = $('#tBody'); // Input area
   var pMarkOut = $('#pMarkOut'); // Shows rendered HTML
-  var pJson    = $('#pJson');    // Shows JSON string of object that holds "body"
   var mObj = {}; // Empty object, filled in during JSON string update
 
   function render() {
