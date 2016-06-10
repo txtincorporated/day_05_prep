@@ -1,0 +1,14 @@
+.divBlock {
+  display: inline-block;
+}
+
+.pMarkout {
+    display: inline-block;
+    height: 50%;
+    width: 50%;
+    float; right;
+    vertical-align: top;
+}
+
+
+#tBody { font-size: 1em }
